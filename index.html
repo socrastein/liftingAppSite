@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Relative: the file is copied into the build by vite.config.ts (libraryAppIcons), so Vite cannot rewrite the path -->
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <!-- Out of search results until the free version is ready for the public (backend-design.md section 13, step 1b) -->
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Lifting App</title>
+    <script>
+      // Applies the saved light/dark choice before anything renders, so the page never flashes
+      // light then dark. Mirrors src/colorSchemeKey.ts and the library's useColorScheme: same key, same values
+      // ('light' | 'dark' | 'auto'; no value or 'auto' follows the system).
+      try {
+        const saved = localStorage.getItem('liftingApp.colorScheme')
+        const followsSystem = saved === null || saved === 'auto'
+        const systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (saved === 'dark' || (followsSystem && systemIsDark)) {
+          document.documentElement.classList.add('dark')
+        }
+      } catch {
+        // Storage blocked (private mode, settings): the app falls back to the system choice.
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-B-YUi7p3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Qv7SiyAk.css">
+  <link rel="manifest" href="./manifest.webmanifest"></head>
+  <body>
+    <div id="app"><p role="status">Loading…</p></div>
+  </body>
+</html>
